@@ -2,20 +2,14 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 $(function () {
+  var currentDate = dayjs().format("dddd, MMMM D, YYYY, h:mm:ss a");
+  $("#currentDay").text(currentDate);
   $(".saveBtn").on("click", function() {
+    console.log(this);
     var timeBlockId = $(this).parent().attr("id");
     var input = $(this).siblings(".description").val();
     localStorage.setItem(timeBlockId, input);
   });
-
-  $(".time-block").each(function () {
-    var timeBlockId = $(this).attr("id");
-    var userSave = localStorage.getItem(timeBlockId);
-    
-    if (userSave !== null) {
-      $(this).find(".description").val(userSave);
-    }
-  }); 
 
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
@@ -36,19 +30,20 @@ $(function () {
 
 
   function updateBlockClasses() {
-    // Get the current hour using Day.js and convert it to a number
     var currentHour = dayjs().hour();
   
-    // Iterate through time blocks and apply classes based on their time
     $(".time-block").each(function () {
       var hourBlock = parseInt($(this).attr("id").split("hour")[1]);
       console.log(hourBlock, currentHour);
+  
+      $(this).removeClass("past present future");
+  
       if (hourBlock < currentHour) {
-        $(this).removeClass("present future").addClass("past");
+        $(this).addClass("past");
       } else if (hourBlock === currentHour) {
-        $(this).removeClass("past future").addClass("present");
+        $(this).addClass("present");
       } else {
-        $(this).removeClass("past present").addClass("future");
+        $(this).addClass("future");
       }
     });
   }
