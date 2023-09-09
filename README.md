@@ -13,3 +13,6 @@ Persistence: Your schedule is stored locally, ensuring it remains intact even if
 
 ## License
 This project is licensed under the MIT License.
+
+## Live Site
+https://ucarr81.github.io/Work-Day-Scheduler/
